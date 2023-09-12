@@ -15,24 +15,16 @@ namespace stage
         private float _horizontal;
         private float _speed = 10f;
         private float _jumpForce = 10f;
-        private bool _isFaceRight;
 
         private Rigidbody2D _rb;
-        private Rigidbody2D _leftHand;
-        private Rigidbody2D _rightHand;
 
         private void Awake()
         {
             _rightArm = GameObject.Find("RightArm").GetComponent<LineRenderer>();
             _leftArm = GameObject.Find("LeftArm").GetComponent<LineRenderer>();
-            _leftHand = _leftArm.gameObject.GetComponent<Rigidbody2D>();
-            _rightHand = _rightArm.gameObject.GetComponent<Rigidbody2D>();
             _rb = GetComponent<Rigidbody2D>();
         }
 
-        private void Start()
-        {
-        }
 
         private void Update()
         {
@@ -62,8 +54,6 @@ namespace stage
             {
                 _rb.velocity *= new Vector2(1, 0.5f);
             }
-
-            Flip();
         }
 
         private void FixedUpdate()
@@ -76,13 +66,6 @@ namespace stage
             return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         }
 
-        private void Flip()
-        {
-            if (_isFaceRight && _horizontal < 0 || !_isFaceRight && _horizontal > 0)
-            {
-                _isFaceRight = !_isFaceRight;
-                transform.Rotate(0, 180, 0);
-            }
-        }
+
     }
 }
